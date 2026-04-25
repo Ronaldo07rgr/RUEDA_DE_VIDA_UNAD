@@ -96,9 +96,9 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="relative w-full max-w-[900px] svg-container mb-12">
-                    <!-- viewBox aumentado para permitir que el círculo crezca -->
-                    <svg id="wheel-svg-vida" viewBox="0 0 1100 1100" class="w-full h-auto"></svg>
+                <div class="relative w-full max-w-[950px] svg-container mb-12">
+                    <!-- viewBox ampliado a 1400 para evitar recortes en los bordes -->
+                    <svg id="wheel-svg-vida" viewBox="0 0 1400 1400" class="w-full h-auto"></svg>
                 </div>
             </div>
         </section>
@@ -115,9 +115,9 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <!-- viewBox a 1500 para permitir un círculo mucho más grande con etiquetas alejadas -->
-                <div class="relative w-full max-w-[1200px] svg-container mb-16">
-                    <svg id="wheel-svg-valores" viewBox="0 0 1500 1500" class="w-full h-auto"></svg>
+                <!-- viewBox ampliado a 2000 para dar margen total a las etiquetas en zigzag -->
+                <div class="relative w-full max-w-[1250px] svg-container mb-16">
+                    <svg id="wheel-svg-valores" viewBox="0 0 2000 2000" class="w-full h-auto"></svg>
                 </div>
 
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 w-full">
@@ -280,14 +280,14 @@
                 connector.setAttribute("x2", labelX);
                 connector.setAttribute("y2", labelY);
                 connector.setAttribute("stroke", "#cbd5e1");
-                connector.setAttribute("stroke-width", "1");
-                connector.setAttribute("stroke-dasharray", "4,2");
+                connector.setAttribute("stroke-width", "1.5");
+                connector.setAttribute("stroke-dasharray", "4,3");
                 svg.appendChild(connector);
 
                 const textContent = (item.name || item.label).toUpperCase();
                 const textLen = textContent.length;
-                const rectW = Math.max(100, textLen * 8 + 45);
-                const rectH = 34;
+                const rectW = Math.max(100, textLen * 8.5 + 50);
+                const rectH = 38;
 
                 const groupX = isRightSide ? labelX : labelX - rectW;
                 const groupY = labelY - rectH / 2;
@@ -300,37 +300,38 @@
                 r.setAttribute("y", groupY);
                 r.setAttribute("width", rectW);
                 r.setAttribute("height", rectH);
-                r.setAttribute("rx", "17");
+                r.setAttribute("rx", "19");
                 r.setAttribute("fill", "white");
                 r.setAttribute("stroke", "#f1f5f9");
-                r.setAttribute("stroke-width", "1.5");
+                r.setAttribute("stroke-width", "2");
                 g.appendChild(r);
 
                 const t = document.createElementNS(ns, "text");
-                t.setAttribute("x", groupX + (rectW - 35) / 2 + 5);
-                t.setAttribute("y", labelY + 5);
+                // Centrar texto con espacio para el círculo de puntaje
+                t.setAttribute("x", groupX + (rectW - 38) / 2 + 5);
+                t.setAttribute("y", labelY + 6);
                 t.setAttribute("text-anchor", "middle");
-                t.setAttribute("font-size", "11");
+                t.setAttribute("font-size", "12");
                 t.setAttribute("font-weight", "black");
                 t.setAttribute("fill", "#475569");
                 t.textContent = textContent;
                 g.appendChild(t);
 
-                const scoreCircleX = groupX + rectW - 17;
+                const scoreCircleX = groupX + rectW - 19;
                 const c = document.createElementNS(ns, "circle");
                 c.setAttribute("cx", scoreCircleX);
                 c.setAttribute("cy", labelY);
-                c.setAttribute("r", "12");
+                c.setAttribute("r", "13");
                 c.setAttribute("fill", item.color);
                 c.setAttribute("stroke", "white");
-                c.setAttribute("stroke-width", "2");
+                c.setAttribute("stroke-width", "2.5");
                 g.appendChild(c);
 
                 const st = document.createElementNS(ns, "text");
                 st.setAttribute("x", scoreCircleX);
-                st.setAttribute("y", labelY + 4);
+                st.setAttribute("y", labelY + 4.5);
                 st.setAttribute("text-anchor", "middle");
-                st.setAttribute("font-size", "11");
+                st.setAttribute("font-size", "12");
                 st.setAttribute("font-weight", "900");
                 st.setAttribute("fill", "white");
                 st.textContent = item.score;
@@ -346,9 +347,9 @@
             // Números de escala centrados
             for (let i = 1; i <= levels; i++) {
                 const t = document.createElementNS(ns, "text");
-                t.setAttribute("x", center + 8);
+                t.setAttribute("x", center + 10);
                 t.setAttribute("y", center - (bandWidth * (i - 0.5)));
-                t.setAttribute("font-size", "11");
+                t.setAttribute("font-size", "12");
                 t.setAttribute("font-weight", "black");
                 t.setAttribute("fill", "#94a3b8");
                 t.textContent = i;
@@ -370,10 +371,10 @@
         }
 
         window.onload = () => {
-            // Rueda 1: Centro 550, Radio 350, viewBox 1100
-            createWheel('wheel-svg-vida', lifeAreaData, 550, 350, 8, 55);
-            // Rueda 2: Centro 750, Radio 450, viewBox 1500
-            createWheel('wheel-svg-valores', [...valData, ...antiData], 750, 450, 20, 75);
+            // Rueda 1: Centro 700, Radio 400, viewBox 1400
+            createWheel('wheel-svg-vida', lifeAreaData, 700, 400, 8, 60);
+            // Rueda 2: Centro 1000, Radio 550, viewBox 2000
+            createWheel('wheel-svg-valores', [...valData, ...antiData], 1000, 550, 20, 85);
             renderLists();
         };
     </script>
