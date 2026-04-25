@@ -96,9 +96,9 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="relative w-full max-w-[850px] svg-container mb-12">
-                    <!-- viewBox con aire extra para etiquetas -->
-                    <svg id="wheel-svg-vida" viewBox="0 0 1000 1000" class="w-full h-auto"></svg>
+                <div class="relative w-full max-w-[900px] svg-container mb-12">
+                    <!-- viewBox aumentado para permitir que el círculo crezca -->
+                    <svg id="wheel-svg-vida" viewBox="0 0 1100 1100" class="w-full h-auto"></svg>
                 </div>
             </div>
         </section>
@@ -115,9 +115,9 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <!-- viewBox aumentado a 1200 para permitir que las etiquetas se alejen sin cortarse -->
-                <div class="relative w-full max-w-[1150px] svg-container mb-16">
-                    <svg id="wheel-svg-valores" viewBox="0 0 1200 1200" class="w-full h-auto"></svg>
+                <!-- viewBox a 1500 para permitir un círculo mucho más grande con etiquetas alejadas -->
+                <div class="relative w-full max-w-[1200px] svg-container mb-16">
+                    <svg id="wheel-svg-valores" viewBox="0 0 1500 1500" class="w-full h-auto"></svg>
                 </div>
 
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 w-full">
@@ -263,20 +263,17 @@
                 const angle = (i + 0.5) * sliceAngle - 90;
                 const isRightSide = (angle > -90 && angle <= 90);
                 
-                // Técnica de triple escalonamiento (Zig-Zag-Zag)
+                // Técnica de triple escalonamiento (Zig-Zag-Zag) para dar espacio
                 const staggerIndex = i % 3;
-                const staggerAmount = staggerIndex * 70; 
+                const staggerAmount = staggerIndex * 85; 
                 const labelRadius = maxRadius + baseLabelOffset + staggerAmount;
 
-                // Punto en el borde de la rueda
                 const wheelEdgeX = center + maxRadius * Math.cos(angle * Math.PI / 180);
                 const wheelEdgeY = center + maxRadius * Math.sin(angle * Math.PI / 180);
 
-                // Punto de la etiqueta
                 const labelX = center + labelRadius * Math.cos(angle * Math.PI / 180);
                 const labelY = center + labelRadius * Math.sin(angle * Math.PI / 180);
 
-                // Dibujar línea conectora
                 const connector = document.createElementNS(ns, "line");
                 connector.setAttribute("x1", wheelEdgeX);
                 connector.setAttribute("y1", wheelEdgeY);
@@ -289,10 +286,9 @@
 
                 const textContent = (item.name || item.label).toUpperCase();
                 const textLen = textContent.length;
-                const rectW = Math.max(90, textLen * 7.5 + 45);
-                const rectH = 30;
+                const rectW = Math.max(100, textLen * 8 + 45);
+                const rectH = 34;
 
-                // Ajuste de posición del grupo basado en el lado de la rueda
                 const groupX = isRightSide ? labelX : labelX - rectW;
                 const groupY = labelY - rectH / 2;
 
@@ -304,29 +300,27 @@
                 r.setAttribute("y", groupY);
                 r.setAttribute("width", rectW);
                 r.setAttribute("height", rectH);
-                r.setAttribute("rx", "15");
+                r.setAttribute("rx", "17");
                 r.setAttribute("fill", "white");
                 r.setAttribute("stroke", "#f1f5f9");
                 r.setAttribute("stroke-width", "1.5");
                 g.appendChild(r);
 
                 const t = document.createElementNS(ns, "text");
-                // Centrar texto en el espacio restante del rect
-                t.setAttribute("x", groupX + (rectW - 30) / 2 + 5);
-                t.setAttribute("y", labelY + 4);
+                t.setAttribute("x", groupX + (rectW - 35) / 2 + 5);
+                t.setAttribute("y", labelY + 5);
                 t.setAttribute("text-anchor", "middle");
-                t.setAttribute("font-size", "10");
+                t.setAttribute("font-size", "11");
                 t.setAttribute("font-weight", "black");
                 t.setAttribute("fill", "#475569");
                 t.textContent = textContent;
                 g.appendChild(t);
 
-                // Círculo de puntaje siempre al extremo "exterior" del rect
-                const scoreCircleX = groupX + rectW - 15;
+                const scoreCircleX = groupX + rectW - 17;
                 const c = document.createElementNS(ns, "circle");
                 c.setAttribute("cx", scoreCircleX);
                 c.setAttribute("cy", labelY);
-                c.setAttribute("r", "11");
+                c.setAttribute("r", "12");
                 c.setAttribute("fill", item.color);
                 c.setAttribute("stroke", "white");
                 c.setAttribute("stroke-width", "2");
@@ -334,9 +328,9 @@
 
                 const st = document.createElementNS(ns, "text");
                 st.setAttribute("x", scoreCircleX);
-                st.setAttribute("y", labelY + 3.5);
+                st.setAttribute("y", labelY + 4);
                 st.setAttribute("text-anchor", "middle");
-                st.setAttribute("font-size", "10");
+                st.setAttribute("font-size", "11");
                 st.setAttribute("font-weight", "900");
                 st.setAttribute("fill", "white");
                 st.textContent = item.score;
@@ -352,9 +346,9 @@
             // Números de escala centrados
             for (let i = 1; i <= levels; i++) {
                 const t = document.createElementNS(ns, "text");
-                t.setAttribute("x", center + 6);
+                t.setAttribute("x", center + 8);
                 t.setAttribute("y", center - (bandWidth * (i - 0.5)));
-                t.setAttribute("font-size", "10");
+                t.setAttribute("font-size", "11");
                 t.setAttribute("font-weight", "black");
                 t.setAttribute("fill", "#94a3b8");
                 t.textContent = i;
@@ -376,10 +370,10 @@
         }
 
         window.onload = () => {
-            // Rueda 1: Centro 500, Radio 240, 8 sectores, offset 50
-            createWheel('wheel-svg-vida', lifeAreaData, 500, 240, 8, 50);
-            // Rueda 2: Centro 600, Radio 280, 20 sectores, offset 60
-            createWheel('wheel-svg-valores', [...valData, ...antiData], 600, 280, 20, 60);
+            // Rueda 1: Centro 550, Radio 350, viewBox 1100
+            createWheel('wheel-svg-vida', lifeAreaData, 550, 350, 8, 55);
+            // Rueda 2: Centro 750, Radio 450, viewBox 1500
+            createWheel('wheel-svg-valores', [...valData, ...antiData], 750, 450, 20, 75);
             renderLists();
         };
     </script>
