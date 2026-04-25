@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rueda de la Vida - Proyecto de Vida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .wheel-path {
+            transition: opacity 0.3s ease;
+            cursor: help;
+        }
+        .wheel-path:hover {
+            opacity: 0.8;
+        }
+        .svg-container {
+            filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+        }
+        /* Estilos para el mensaje flotante (Tooltip) */
+        #tooltip {
+            position: absolute;
+            display: none;
+            background: rgba(31, 41, 55, 0.95);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            max-width: 240px;
+            z-index: 1000;
+            pointer-events: none;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            line-height: 1.4;
+        }
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+
+    <!-- Div para el mensaje flotante -->
+    <div id="tooltip"></div>
+
+    <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden p-6 md:p-10 border border-gray-100">
+        
+        <!-- Encabezado Institucional -->
+        <header class="border-b pb-6 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img 
+                        src="https://i.ibb.co/LhRcJ8CJ/unad-universidad-nacional-abierta-y-a-distancia-logo-CF588-A3560-seeklogo-com-removebg-preview.png" 
+                        alt="Logo UNAD" 
+                        class="h-14 w-auto object-contain"
+                    />
+                </div>
+                <div class="text-right border-l-2 border-blue-600 pl-4 hidden md:block">
+                    <p class="text-sm font-bold text-gray-800">24/04/2026</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest">La Plata, Huila</p>
+                </div>
+            </div>
+
+            <!-- Presentación Estudiante -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-blue-50/50 p-4 rounded-2xl border border-blue-100 shadow-sm">
+                <div>
+                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Estudiante</p>
+                    <p class="text-xl font-black text-gray-800 tracking-tight">Ronaldo Stiven Rosero Gutierrez</p>
+                    <div class="flex space-x-4 mt-1">
+                        <p class="text-xs text-gray-600 font-medium"><span class="text-blue-600 font-bold">Curso:</span> Proyecto De Vida 80002</p>
+                        <p class="text-xs text-gray-600 font-medium"><span class="text-blue-600 font-bold">Grupo:</span> 1811</p>
+                    </div>
+                </div>
+                <div class="md:text-right flex flex-col justify-center">
+                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Tutor Académico</p>
+                    <p class="text-lg font-bold text-gray-800">Alfonso Heber Santander Alvarez</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Título -->
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-black text-gray-900 tracking-tighter uppercase">RUEDA DE LA VIDA</h2>
+            <div class="h-1 w-20 bg-blue-600 mx-auto mt-2 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Columna Izquierda: Antivalores -->
+            <aside class="lg:col-span-3 order-2 lg:order-1">
+                <div class="bg-yellow-50 rounded-2xl p-5 border-2 border-yellow-100 shadow-sm">
+                    <h3 class="text-center font-bold text-yellow-800 mb-4 border-b border-yellow-200 pb-2 uppercase tracking-wide">Antivalores</h3>
+                    <ul id="lista-antivalores" class="space-y-1">
+                        <!-- Generado por JS -->
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Centro: El Gráfico de la Rueda -->
+            <main class="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center justify-center">
+                <div class="relative w-full max-w-[500px] svg-container" id="contenedor-rueda">
+                    <svg id="wheel-svg" viewBox="0 0 500 500" class="w-full h-auto">
+                        <!-- Los elementos del SVG se generarán aquí con JS -->
+                    </svg>
+                </div>
+            </main>
+
+            <!-- Columna Derecha: Valores -->
+            <aside class="lg:col-span-3 order-3">
+                <div class="bg-pink-50 rounded-2xl p-5 border-2 border-pink-100 shadow-sm">
+                    <h3 class="text-center font-bold text-pink-800 mb-4 border-b border-pink-200 pb-2 uppercase tracking-wide">Valores</h3>
+                    <ul id="lista-valores" class="space-y-1">
+                        <!-- Generado por JS -->
+                    </ul>
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- Pie de página -->
+        <footer class="mt-12 pt-6 border-t border-gray-100 flex justify-center">
+            <div class="flex items-center space-x-2 bg-blue-50 px-6 py-2 rounded-full border border-blue-100 shadow-sm">
+                <div class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></div>
+                <span class="text-xs font-bold text-blue-800 uppercase tracking-widest">DOCUMENTO FINALIZADO</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Datos de la Rueda con justificaciones
+        const wheelData = [
+            { label: "SALUD", score: 8, color: "#f8bbd0", desc: "Mantengo hábitos que cuidan mi bienestar físico y mental para rendir en mis estudios." },
+            { label: "AMOR", score: 7, color: "#ffccbc", desc: "Mis vínculos afectivos son una fuente importante de apoyo emocional y equilibrio." },
+            { label: "FAMILIA", score: 10, color: "#c8e6c9", desc: "Es mi base fundamental y el motor innegociable que impulsa todos mis proyectos." },
+            { label: "DESARROLLO PERSONAL", score: 6, color: "#e1bee7", desc: "Estoy en un proceso constante de autoconocimiento para fortalecer mi autonomía." },
+            { label: "PROFESIÓN", score: 9, color: "#fff9c4", desc: "Mi carrera profesional es una prioridad alta para asegurar mi estabilidad futura." },
+            { label: "EGOÍSMO", score: 4, color: "#dcedc8", desc: "Intento controlar este rasgo para no descuidar las necesidades de quienes me rodean." },
+            { label: "SOBERBIA", score: 3, color: "#fff59d", desc: "Reconozco que siempre puedo aprender de los demás y busco mantener la humildad." },
+            { label: "SUPEREGO", score: 5, color: "#ffab91", desc: "Modero mi autoexigencia para evitar el agotamiento sin perder la calidad en mi trabajo." }
+        ];
+
+        // Valores con justificaciones
+        const valores = [
+            { name: "Respeto", score: 10, desc: "Es la base fundamental de mi trato con los demás y conmigo mismo." },
+            { name: "Autonomía", score: 9, desc: "Busco ser dueño de mis decisiones para forjar mi propio camino." },
+            { name: "Empatía", score: 8, desc: "Trato de entender las realidades ajenas para mantener vínculos sanos." },
+            { name: "Disciplina", score: 7, desc: "Es el motor que me permite avanzar en mi formación profesional." },
+            { name: "Honestidad", score: 6, desc: "Busco actuar con transparencia en mis compromisos académicos." },
+            { name: "Responsabilidad", score: 5, desc: "Reconozco que debo fortalecer el cumplimiento de mis deberes." },
+            { name: "Compromiso", score: 4, desc: "Necesito involucrarme más a fondo con mis metas a largo plazo." },
+            { name: "Solidaridad", score: 3, desc: "Aunque ayudo, a veces me centro demasiado en mi propio avance." },
+            { name: "Integridad", score: 2, desc: "Siento que aún debo alinear más mis acciones con mis ideales." },
+            { name: "Tolerancia", score: 1, desc: "Me cuesta aceptar perspectivas que chocan con mi lógica personal." }
+        ];
+
+        // Antivalores con justificaciones
+        const antivalores = [
+            { name: "Procrastinación", score: 10, desc: "Es mi mayor obstáculo; tiendo a postergar tareas importantes." },
+            { name: "Individualismo", score: 9, desc: "Suelo aislarme y creer que puedo con todo yo solo." },
+            { name: "Superego", score: 8, desc: "Mi autoexigencia a veces se vuelve una carga mental pesada." },
+            { name: "Egoísmo", score: 7, desc: "Priorizo mi bienestar por encima del grupo con frecuencia." },
+            { name: "Soberbia", score: 6, desc: "A veces me cuesta reconocer que otros pueden tener mejores ideas." },
+            { name: "Irresponsabilidad", score: 5, desc: "He tenido descuidos que han afectado mis metas diarias." },
+            { name: "Negatividad", score: 4, desc: "Ante el estrés, suelo ver el lado difícil de las situaciones." },
+            { name: "Impuntualidad", score: 3, desc: "Me desorganizo con el tiempo y llego tarde a mis metas." },
+            { name: "Falta de Empatía", score: 2, desc: "En momentos críticos, me cierro a los sentimientos ajenos." },
+            { name: "Deshonestidad", score: 1, desc: "Afortunadamente, es el rasgo que menos aplico en mi vida." }
+        ];
+
+        const tooltip = document.getElementById('tooltip');
+
+        function renderLists() {
+            const valContainer = document.getElementById('lista-valores');
+            const antiContainer = document.getElementById('lista-antivalores');
+
+            valContainer.innerHTML = "";
+            valores.forEach(v => {
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center text-sm hover:bg-pink-100 p-1 rounded transition-colors cursor-help";
+                li.innerHTML = `
+                    <span class="text-gray-700 font-medium">${v.name}</span>
+                    <span class="bg-pink-200 text-pink-800 px-2 py-0.5 rounded-full text-xs font-bold">${v.score}</span>
+                `;
+                li.onmouseenter = (e) => showTooltip(e, v.desc);
+                li.onmousemove = moveTooltip;
+                li.onmouseleave = hideTooltip;
+                valContainer.appendChild(li);
+            });
+
+            antiContainer.innerHTML = "";
+            antivalores.forEach(a => {
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center text-sm hover:bg-yellow-100 p-1 rounded transition-colors cursor-help";
+                li.innerHTML = `
+                    <span class="text-gray-700 font-medium">${a.name}</span>
+                    <span class="bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full text-xs font-bold">${a.score}</span>
+                `;
+                li.onmouseenter = (e) => showTooltip(e, a.desc);
+                li.onmousemove = moveTooltip;
+                li.onmouseleave = hideTooltip;
+                antiContainer.appendChild(li);
+            });
+        }
+
+        function showTooltip(e, text) {
+            tooltip.textContent = text;
+            tooltip.style.display = 'block';
+        }
+
+        function moveTooltip(e) {
+            tooltip.style.left = (e.pageX + 15) + 'px';
+            tooltip.style.top = (e.pageY + 15) + 'px';
+        }
+
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        function renderWheel() {
+            const svg = document.getElementById('wheel-svg');
+            const center = 250;
+            const maxRadius = 180;
+            const levels = 10;
+            const ns = "http://www.w3.org/2000/svg";
+
+            svg.innerHTML = "";
+
+            // Niveles de círculos de fondo
+            for (let i = 1; i <= levels; i++) {
+                const circle = document.createElementNS(ns, "circle");
+                circle.setAttribute("cx", center);
+                circle.setAttribute("cy", center);
+                circle.setAttribute("r", (maxRadius / levels) * i);
+                circle.setAttribute("fill", "none");
+                circle.setAttribute("stroke", "#e2e8f0");
+                circle.setAttribute("stroke-width", "1");
+                svg.appendChild(circle);
+            }
+
+            // Áreas coloreadas
+            wheelData.forEach((item, i) => {
+                const startAngle = (i * 45 - 90) * (Math.PI / 180);
+                const endAngle = ((i + 1) * 45 - 90) * (Math.PI / 180);
+                const radius = (maxRadius / levels) * item.score;
+
+                const x1 = center + radius * Math.cos(startAngle);
+                const y1 = center + radius * Math.sin(startAngle);
+                const x2 = center + radius * Math.cos(endAngle);
+                const y2 = center + radius * Math.sin(endAngle);
+
+                const path = document.createElementNS(ns, "path");
+                path.setAttribute("d", `M ${center} ${center} L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`);
+                path.setAttribute("fill", item.color);
+                path.setAttribute("stroke", "white");
+                path.setAttribute("stroke-width", "2");
+                path.classList.add("wheel-path");
+                
+                // Tooltip para el área
+                path.onmouseenter = (e) => showTooltip(e, `${item.label} (${item.score}/10): ${item.desc}`);
+                path.onmousemove = moveTooltip;
+                path.onmouseleave = hideTooltip;
+                
+                svg.appendChild(path);
+            });
+
+            // Líneas divisorias
+            for (let i = 0; i < 8; i++) {
+                const angle = (i * 45 - 90) * (Math.PI / 180);
+                const x2 = center + maxRadius * Math.cos(angle);
+                const y2 = center + maxRadius * Math.sin(angle);
+                const line = document.createElementNS(ns, "line");
+                line.setAttribute("x1", center);
+                line.setAttribute("y1", center);
+                line.setAttribute("x2", x2);
+                line.setAttribute("y2", y2);
+                line.setAttribute("stroke", "#cbd5e1");
+                line.setAttribute("stroke-width", "1");
+                svg.appendChild(line);
+            }
+
+            // Etiquetas dinámicas
+            wheelData.forEach((item, i) => {
+                const angle = ((i + 0.5) * 45 - 90) * (Math.PI / 180);
+                const x = center + (maxRadius + 45) * Math.cos(angle);
+                const y = center + (maxRadius + 45) * Math.sin(angle);
+
+                const textWidth = item.label.length * 6.5; 
+                const rectWidth = textWidth + 40; 
+                const rectHeight = 24;
+                const rectX = x - (rectWidth / 2);
+                const rectY = y - (rectHeight / 2);
+
+                const group = document.createElementNS(ns, "g");
+                group.style.cursor = "help";
+                
+                const rect = document.createElementNS(ns, "rect");
+                rect.setAttribute("x", rectX);
+                rect.setAttribute("y", rectY);
+                rect.setAttribute("width", rectWidth);
+                rect.setAttribute("height", rectHeight);
+                rect.setAttribute("rx", "12");
+                rect.setAttribute("fill", "white");
+                rect.setAttribute("stroke", "#e2e8f0");
+                rect.setAttribute("stroke-width", "1");
+                group.appendChild(rect);
+
+                const text = document.createElementNS(ns, "text");
+                text.setAttribute("x", rectX + (textWidth / 2) + 12);
+                text.setAttribute("y", y + 4);
+                text.setAttribute("text-anchor", "middle");
+                text.setAttribute("font-size", "9");
+                text.setAttribute("font-weight", "bold");
+                text.setAttribute("fill", "#4b5563");
+                text.textContent = item.label;
+                group.appendChild(text);
+
+                const scoreCircle = document.createElementNS(ns, "circle");
+                scoreCircle.setAttribute("cx", rectX + rectWidth - 12); 
+                scoreCircle.setAttribute("cy", y);
+                scoreCircle.setAttribute("r", "9");
+                scoreCircle.setAttribute("fill", item.color);
+                scoreCircle.setAttribute("stroke", "white");
+                scoreCircle.setAttribute("stroke-width", "1.5");
+                group.appendChild(scoreCircle);
+
+                const scoreText = document.createElementNS(ns, "text");
+                scoreText.setAttribute("x", rectX + rectWidth - 12);
+                scoreText.setAttribute("y", y + 3);
+                scoreText.setAttribute("text-anchor", "middle");
+                scoreText.setAttribute("font-size", "8");
+                scoreText.setAttribute("font-weight", "900");
+                scoreText.setAttribute("fill", "#1f2937");
+                scoreText.textContent = item.score;
+                group.appendChild(scoreText);
+
+                // Tooltip para la etiqueta
+                group.onmouseenter = (e) => showTooltip(e, `${item.label}: ${item.desc}`);
+                group.onmousemove = moveTooltip;
+                group.onmouseleave = hideTooltip;
+
+                svg.appendChild(group);
+            });
+
+            const bandWidth = maxRadius / levels;
+            for (let i = 1; i <= levels; i++) {
+                const text = document.createElementNS(ns, "text");
+                const yPos = center - (bandWidth * (i - 0.5));
+                text.setAttribute("x", center + 4);
+                text.setAttribute("y", yPos + 3);
+                text.setAttribute("font-size", "8");
+                text.setAttribute("font-weight", "bold");
+                text.setAttribute("fill", "#9ca3af");
+                text.textContent = i;
+                svg.appendChild(text);
+            }
+        }
+
+        window.onload = () => {
+            renderLists();
+            renderWheel();
+        };
+    </script>
+</body>
+</html>
