@@ -20,82 +20,84 @@
             filter: brightness(1.1);
         }
         .svg-container {
-            filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.05));
+            filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.07));
         }
         #tooltip {
             position: absolute;
             display: none;
             background: rgba(17, 24, 39, 0.98);
             color: white;
-            padding: 10px 14px;
+            padding: 12px 16px;
             border-radius: 12px;
-            font-size: 13px;
-            max-width: 250px;
+            font-size: 14px;
+            max-width: 280px;
             z-index: 1000;
             pointer-events: none;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            line-height: 1.4;
+            line-height: 1.5;
         }
         @media print {
             .no-print { display: none; }
             body { background: white; padding: 0; }
-            .main-card { border: none; box-shadow: none; }
+            .main-card { border: none; box-shadow: none; max-width: 100% !important; }
             .page-break { page-break-before: always; }
         }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+<body class="bg-slate-50 min-h-screen p-2 md:p-6">
 
     <div id="tooltip"></div>
 
-    <div class="max-w-7xl mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden p-6 md:p-12 border border-slate-100 main-card">
+    <!-- Contenedor expandido al 95% del ancho de la página -->
+    <div class="max-w-[95%] mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden p-6 md:p-16 border border-slate-100 main-card">
         
         <!-- Encabezado Institucional -->
-        <header class="border-b border-slate-100 pb-8 mb-10">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <header class="border-b border-slate-100 pb-10 mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
                 <div class="flex items-center mb-6 md:mb-0">
                     <img 
                         src="https://i.ibb.co/LhRcJ8CJ/unad-universidad-nacional-abierta-y-a-distancia-logo-CF588-A3560-seeklogo-com-removebg-preview.png" 
                         alt="Logo UNAD" 
-                        class="h-16 w-auto object-contain"
+                        class="h-20 w-auto object-contain"
                     />
                 </div>
-                <div class="text-right border-l-4 border-blue-600 pl-6 hidden md:block">
-                    <p class="text-lg font-black text-slate-800">24/04/2026</p>
+                <div class="text-right border-l-4 border-blue-600 pl-8 hidden md:block">
+                    <p class="text-xl font-black text-slate-800">24/04/2026</p>
                     <p class="text-sm text-slate-400 font-bold uppercase tracking-[0.2em]">La Plata, Huila</p>
                 </div>
             </div>
 
             <!-- Ficha del Estudiante -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-3xl border border-slate-100 shadow-inner">
-                <div class="space-y-1">
-                    <p class="text-[11px] font-black text-blue-500 uppercase tracking-widest">Estudiante del Programa</p>
-                    <p class="text-2xl font-black text-slate-900 tracking-tight">Ronaldo Stiven Rosero Gutierrez</p>
-                    <div class="flex flex-wrap gap-4 mt-2">
-                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">Curso: Proyecto De Vida 80002</span>
-                        <span class="bg-slate-200 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Grupo: 1811</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-inner">
+                <div class="space-y-2">
+                    <p class="text-[12px] font-black text-blue-500 uppercase tracking-widest">Estudiante del Programa</p>
+                    <p class="text-3xl font-black text-slate-900 tracking-tight">Ronaldo Stiven Rosero Gutierrez</p>
+                    <div class="flex flex-wrap gap-4 mt-3">
+                        <span class="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-bold">Curso: Proyecto De Vida 80002</span>
+                        <span class="bg-slate-200 text-slate-700 px-4 py-1.5 rounded-full text-sm font-bold">Grupo: 1811</span>
                     </div>
                 </div>
                 <div class="md:text-right flex flex-col justify-center">
-                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Tutor Académico</p>
-                    <p class="text-xl font-bold text-slate-800">Alfonso Heber Santander Alvarez</p>
-                    <p class="text-xs text-blue-600 font-bold italic">UNAD - ECBTI</p>
+                    <p class="text-[12px] font-black text-slate-400 uppercase tracking-widest mb-1">Tutor Académico</p>
+                    <p class="text-2xl font-bold text-slate-800">Alfonso Heber Santander Alvarez</p>
+                    <p class="text-sm text-blue-600 font-bold italic">UNAD - ECBTI</p>
                 </div>
             </div>
         </header>
 
         <!-- SECCIÓN 1: RUEDA DE LA VIDA -->
-        <section class="mb-24">
-            <div class="text-center mb-12">
-                <span class="text-blue-600 font-black text-[10px] uppercase tracking-[0.3em]">Diagnóstico de Áreas</span>
-                <h2 class="text-4xl font-black text-slate-900 tracking-tighter uppercase mt-2">1. Rueda de la Vida</h2>
-                <p class="text-slate-400 text-sm mt-2 font-medium">Análisis del estado actual en las dimensiones fundamentales del ser</p>
-                <div class="h-1.5 w-24 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+        <section class="mb-32">
+            <div class="text-center mb-16">
+                <span class="text-blue-600 font-black text-xs uppercase tracking-[0.4em]">Diagnóstico de Áreas</span>
+                <h2 class="text-5xl font-black text-slate-900 tracking-tighter uppercase mt-3">1. Rueda de la Vida</h2>
+                <p class="text-slate-400 text-lg mt-3 font-medium">Análisis del estado actual en las dimensiones fundamentales del ser</p>
+                <div class="h-2 w-32 bg-blue-600 mx-auto mt-6 rounded-full"></div>
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="relative w-full max-w-[650px] svg-container mb-8">
+                <!-- Aumentado el ancho máximo del primer gráfico -->
+                <div class="relative w-full max-w-[850px] svg-container mb-12">
                     <svg id="wheel-svg-vida" viewBox="0 0 600 600" class="w-full h-auto"></svg>
                 </div>
             </div>
@@ -104,41 +106,43 @@
         <div class="page-break"></div>
 
         <!-- SECCIÓN 2: RUEDA DE VALORES -->
-        <section class="mt-12">
-            <div class="text-center mb-12">
-                <span class="text-slate-600 font-black text-[10px] uppercase tracking-[0.3em]">Jerarquía Ética</span>
-                <h2 class="text-4xl font-black text-slate-900 tracking-tighter uppercase mt-2">2. Rueda de Valores y Antivalores</h2>
-                <p class="text-slate-400 text-sm mt-2 font-medium">Representación de prioridades morales y retos personales según la guía</p>
-                <div class="h-1.5 w-24 bg-slate-800 mx-auto mt-4 rounded-full"></div>
+        <section class="mt-16">
+            <div class="text-center mb-16">
+                <span class="text-slate-600 font-black text-xs uppercase tracking-[0.4em]">Jerarquía Ética</span>
+                <h2 class="text-5xl font-black text-slate-900 tracking-tighter uppercase mt-3">2. Rueda de Valores y Antivalores</h2>
+                <p class="text-slate-400 text-lg mt-3 font-medium">Representación de prioridades morales y retos personales según la guía</p>
+                <div class="h-2 w-32 bg-slate-800 mx-auto mt-6 rounded-full"></div>
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="relative w-full max-w-[850px] svg-container mb-12">
+                <!-- Aumentado el ancho máximo del segundo gráfico para mayor impacto -->
+                <div class="relative w-full max-w-[1050px] svg-container mb-16">
                     <svg id="wheel-svg-valores" viewBox="0 0 700 700" class="w-full h-auto"></svg>
                 </div>
 
-                <!-- Listas Detalladas -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
-                    <div class="bg-emerald-50 rounded-[2rem] p-8 border-2 border-emerald-100">
-                        <div class="flex items-center space-x-3 mb-6 border-b border-emerald-200 pb-4">
-                            <h3 class="font-black text-emerald-900 uppercase tracking-widest text-sm">Escala de Valores</h3>
+                <!-- Listas Detalladas ensanchadas -->
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 w-full">
+                    <div class="bg-emerald-50 rounded-[2.5rem] p-10 border-2 border-emerald-100">
+                        <div class="flex items-center space-x-4 mb-8 border-b border-emerald-200 pb-6">
+                            <h3 class="font-black text-emerald-900 uppercase tracking-widest text-lg">Escala de Valores</h3>
                         </div>
-                        <ul id="lista-valores" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2"></ul>
+                        <ul id="lista-valores" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3"></ul>
                     </div>
-                    <div class="bg-rose-50 rounded-[2rem] p-8 border-2 border-rose-100">
-                        <div class="flex items-center space-x-3 mb-6 border-b border-rose-200 pb-4">
-                            <h3 class="font-black text-rose-900 uppercase tracking-widest text-sm">Escala de Antivalores</h3>
+                    <div class="bg-rose-50 rounded-[2.5rem] p-10 border-2 border-rose-100">
+                        <div class="flex items-center space-x-4 mb-8 border-b border-rose-200 pb-6">
+                            <h3 class="font-black text-rose-900 uppercase tracking-widest text-lg">Escala de Antivalores</h3>
                         </div>
-                        <ul id="lista-antivalores" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2"></ul>
+                        <ul id="lista-antivalores" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3"></ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <footer class="mt-20 pt-8 border-t border-slate-100 flex justify-center">
-            <div class="flex items-center space-x-3 bg-blue-50 px-6 py-3 rounded-2xl border border-blue-100 shadow-sm">
-                <div class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></div>
-                <span class="text-xs font-black text-blue-800 uppercase tracking-[0.2em]">Entrega Final - Proyecto de Vida</span>
+        <!-- Footer -->
+        <footer class="mt-24 pt-10 border-t border-slate-100 flex justify-center">
+            <div class="flex items-center space-x-4 bg-blue-50 px-10 py-4 rounded-3xl border border-blue-100 shadow-sm">
+                <div class="w-3 h-3 rounded-full bg-blue-600 animate-pulse"></div>
+                <span class="text-sm font-black text-blue-800 uppercase tracking-[0.3em]">Entrega Final - Proyecto de Vida</span>
             </div>
         </footer>
     </div>
@@ -156,7 +160,7 @@
             { label: "SUPEREGO", score: 5, color: "#ffab91", desc: "Modero mi autoexigencia para evitar el agotamiento sin perder la calidad en mi trabajo." }
         ];
 
-        // DATA: Valores con Colores Fríos (Azul/Verde/Cian)
+        // DATA: Valores con Colores Fríos
         const valData = [
             { name: "Respeto", score: 10, desc: "Pilar absoluto de mi conducta personal y académica.", color: "#059669" },
             { name: "Autonomía", score: 9, desc: "Capacidad de gobernar mi propio aprendizaje en la UNAD.", color: "#2563eb" },
@@ -170,7 +174,7 @@
             { name: "Tolerancia", score: 1, desc: "Aceptación de la diversidad en los foros de discusión.", color: "#15803d" }
         ];
 
-        // DATA: Antivalores con Colores Cálidos (Rojo/Naranja/Rosa)
+        // DATA: Antivalores con Colores Cálidos
         const antiData = [
             { name: "Procrastinación", score: 10, desc: "El reto número uno a vencer para ser efectivo.", color: "#e11d48" },
             { name: "Individualismo", score: 9, desc: "Tendencia a aislarme que debo moderar.", color: "#d97706" },
@@ -264,45 +268,46 @@
 
                 const textContent = item.name || item.label;
                 const textLen = textContent.length;
-                const rectW = Math.max(85, textLen * 7 + 35);
-                const rectH = 24;
+                const rectW = Math.max(90, textLen * 7.5 + 40);
+                const rectH = 28;
 
                 const g = document.createElementNS(ns, "g");
                 g.style.cursor = "help";
                 
                 const r = document.createElementNS(ns, "rect");
                 r.setAttribute("x", p.x - rectW/2);
-                r.setAttribute("y", p.y - 12);
+                r.setAttribute("y", p.y - 14);
                 r.setAttribute("width", rectW);
                 r.setAttribute("height", rectH);
-                r.setAttribute("rx", "12");
+                r.setAttribute("rx", "14");
                 r.setAttribute("fill", "white");
                 r.setAttribute("stroke", "#f1f5f9");
+                r.setAttribute("stroke-width", "1");
                 g.appendChild(r);
 
                 const t = document.createElementNS(ns, "text");
                 t.setAttribute("x", p.x - 12);
                 t.setAttribute("y", p.y + 4);
                 t.setAttribute("text-anchor", "middle");
-                t.setAttribute("font-size", "9");
+                t.setAttribute("font-size", "10");
                 t.setAttribute("font-weight", "black");
                 t.setAttribute("fill", "#64748b");
                 t.textContent = textContent.toUpperCase();
                 g.appendChild(t);
 
                 const c = document.createElementNS(ns, "circle");
-                c.setAttribute("cx", p.x + rectW/2 - 12);
+                c.setAttribute("cx", p.x + rectW/2 - 14);
                 c.setAttribute("cy", p.y);
-                c.setAttribute("r", "9");
+                c.setAttribute("r", "10");
                 c.setAttribute("fill", item.color);
                 c.setAttribute("stroke", "white");
                 g.appendChild(c);
 
                 const st = document.createElementNS(ns, "text");
-                st.setAttribute("x", p.x + rectW/2 - 12);
+                st.setAttribute("x", p.x + rectW/2 - 14);
                 st.setAttribute("y", p.y + 3);
                 st.setAttribute("text-anchor", "middle");
-                st.setAttribute("font-size", "8");
+                st.setAttribute("font-size", "9");
                 st.setAttribute("font-weight", "900");
                 st.setAttribute("fill", "white");
                 st.textContent = item.score;
@@ -317,9 +322,9 @@
 
             for (let i = 1; i <= levels; i++) {
                 const t = document.createElementNS(ns, "text");
-                t.setAttribute("x", center + 5);
+                t.setAttribute("x", center + 6);
                 t.setAttribute("y", center - (bandWidth * (i - 0.5)));
-                t.setAttribute("font-size", "8");
+                t.setAttribute("font-size", "9");
                 t.setAttribute("font-weight", "black");
                 t.setAttribute("fill", "#cbd5e1");
                 t.textContent = i;
@@ -332,17 +337,17 @@
             const antiList = document.getElementById('lista-antivalores');
 
             valData.forEach(v => {
-                valList.innerHTML += `<li class="flex justify-between items-center text-sm p-2 rounded-xl hover:bg-white transition-all cursor-help border border-transparent hover:border-emerald-200" onmouseenter="showTooltip(event, '${v.desc}')" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"><span class="text-slate-700 font-bold">${v.name}</span><span style="background-color: ${v.color}" class="text-white px-2 py-0.5 rounded-lg text-[10px] font-black">${v.score}</span></li>`;
+                valList.innerHTML += `<li class="flex justify-between items-center text-base p-3 rounded-2xl hover:bg-white transition-all cursor-help border border-transparent hover:border-emerald-200" onmouseenter="showTooltip(event, '${v.desc}')" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"><span class="text-slate-700 font-bold">${v.name}</span><span style="background-color: ${v.color}" class="text-white px-3 py-1 rounded-xl text-xs font-black">${v.score}</span></li>`;
             });
 
             antiData.forEach(a => {
-                antiList.innerHTML += `<li class="flex justify-between items-center text-sm p-2 rounded-xl hover:bg-white transition-all cursor-help border border-transparent hover:border-rose-200" onmouseenter="showTooltip(event, '${a.desc}')" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"><span class="text-slate-700 font-bold">${a.name}</span><span style="background-color: ${a.color}" class="text-white px-2 py-0.5 rounded-lg text-[10px] font-black">${a.score}</span></li>`;
+                antiList.innerHTML += `<li class="flex justify-between items-center text-base p-3 rounded-2xl hover:bg-white transition-all cursor-help border border-transparent hover:border-rose-200" onmouseenter="showTooltip(event, '${a.desc}')" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()"><span class="text-slate-700 font-bold">${a.name}</span><span style="background-color: ${a.color}" class="text-white px-3 py-1 rounded-xl text-xs font-black">${a.score}</span></li>`;
             });
         }
 
         window.onload = () => {
-            createWheel('wheel-svg-vida', lifeAreaData, 300, 200, 8, 45);
-            createWheel('wheel-svg-valores', [...valData, ...antiData], 350, 250, 20, 50);
+            createWheel('wheel-svg-vida', lifeAreaData, 300, 240, 8, 45);
+            createWheel('wheel-svg-valores', [...valData, ...antiData], 350, 280, 20, 55);
             renderLists();
         };
     </script>
